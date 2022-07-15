@@ -12,7 +12,7 @@ test:
 
   # Run the tests
   script:
-    - mvn compile test
+    - mvn compile "-Dtest=*" test
 
   # Store artifacts
   artifacts:
