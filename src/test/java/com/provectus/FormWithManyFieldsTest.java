@@ -50,7 +50,7 @@ public class FormWithManyFieldsTest {
     public void connectSelenideBrowserToPW() {
         Playwright playwright = Playwright.create();
         Browser chrome = playwright.chromium().launch(new LaunchOptions()
-                .setHeadless(false)
+                .setHeadless(true)
                 .setChannel("chrome")
                 .setArgs(List.of("--remote-debugging-port=9222")));
 
@@ -91,6 +91,7 @@ public class FormWithManyFieldsTest {
     @Test(dataProvider = "dataProvider")
     public void tableDataTestSelenide(boolean fastSetValue) {
         Configuration.browser = "chrome";
+        Configuration.headless = true;
         Configuration.fastSetValue = fastSetValue;
         open("https://datatables.net/examples/api/form.html");
 
@@ -129,7 +130,7 @@ public class FormWithManyFieldsTest {
     public void tableDataTestPlaywright() {
         Playwright playwright = Playwright.create();
         Browser chrome = playwright.chromium().launch(new LaunchOptions()
-                .setHeadless(false).setChannel("chrome"));
+                .setHeadless(true).setChannel("chrome"));
 
         Page page = chrome.newPage();
         page.navigate("https://datatables.net/examples/api/form.html");
@@ -163,6 +164,7 @@ public class FormWithManyFieldsTest {
     @Test
     public void testCombineSelenideAndPW() {
         Configuration.browser = "chrome";
+        Configuration.headless = true;
         open("https://datatables.net/examples/api/form.html");
         Playwright playwright = Playwright.create();
         Browser browser = playwright.chromium().connectOverCDP(

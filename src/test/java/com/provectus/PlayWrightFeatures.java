@@ -24,7 +24,7 @@ public class PlayWrightFeatures {
     @Test
     public void makeFullScreenScreenShot() {
         Playwright playwright = Playwright.create();
-        Browser chrome = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false));
+        Browser chrome = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(true));
         Page page = chrome.newPage();
         page.navigate("https://google.com");
         page.type("[name=q]", "Provectus");
@@ -46,7 +46,7 @@ public class PlayWrightFeatures {
     public void recordVideoWithPW(){
         FileUtils.cleanDirectory(Paths.get("video").toFile());
         Playwright playwright = Playwright.create();
-        Browser chrome = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setChannel("chrome"));
+        Browser chrome = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true).setChannel("chrome"));
         BrowserContext video = chrome.newContext(new Browser.NewContextOptions()
                 .setRecordVideoDir(Paths.get("video"))
                 .setRecordHarPath(Paths.get("har/har.har")));
@@ -69,7 +69,7 @@ public class PlayWrightFeatures {
         FileUtils.cleanDirectory(Paths.get("video").toFile());
         Playwright playwright = Playwright.create();
         Browser chrome = playwright.chromium().launch(new BrowserType.LaunchOptions()
-                .setHeadless(false)
+                .setHeadless(true)
                 .setChannel("chrome")
                 .setArgs(List.of("--remote-debugging-port=9222")));
         BrowserContext video = chrome.newContext(new Browser.NewContextOptions()

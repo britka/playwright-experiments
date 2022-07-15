@@ -1,4 +1,4 @@
-image: markhobson/maven-chrome:jdk-8
+image: markhobson/maven-chrome:jdk-18
 
 stages:
   - test
