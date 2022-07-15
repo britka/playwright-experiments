@@ -43,8 +43,9 @@ public class PlayWrightFeatures {
 
     @SneakyThrows
     @Test
-    public void recordVideoWithPW(){
-        FileUtils.cleanDirectory(Paths.get("video").toFile());
+    public void recordVideoWithPW() {
+        if (new File("video").exists())
+            FileUtils.cleanDirectory(Paths.get("video").toFile());
         Playwright playwright = Playwright.create();
         Browser chrome = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true).setChannel("chrome"));
         BrowserContext video = chrome.newContext(new Browser.NewContextOptions()
@@ -76,7 +77,7 @@ public class PlayWrightFeatures {
                 .setRecordVideoDir(Paths.get("video")));
 
         Page page = video.newPage();
-       // page.navigate("https://provectus.com");
+        // page.navigate("https://provectus.com");
         Configuration.browser = MyWDProvider.class.getName();
         open("https://provectus.com");
 

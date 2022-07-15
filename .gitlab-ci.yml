@@ -12,7 +12,6 @@ test:
 
   # Run the tests
   script:
-    - mvn $MAVEN_OPTS clean package
     - mvn compile test
 
   # Store artifacts
@@ -21,4 +20,8 @@ test:
     name: "report"
     paths:
       - target/surefire-reports/*
+      - video/*
+      - trace/*
+      - screenshots/*
+      - stats.xlsx
     expire_in: 1 h
