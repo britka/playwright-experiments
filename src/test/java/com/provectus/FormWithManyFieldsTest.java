@@ -26,6 +26,8 @@ import static com.codeborne.selenide.Selenide.*;
 public class FormWithManyFieldsTest {
 
     private TimeStat timeStat = new TimeStat();
+    // Change this to true when you want to see actions in browser
+    private boolean headless = true;
 
     private Faker faker = new Faker();
     private List<String> cities = List.of("Edinburgh", "London", "New York", "San Francisco", "Tokyo");
@@ -46,11 +48,11 @@ public class FormWithManyFieldsTest {
         };
     }
 
-    @Test
+    @Test(priority = 30)
     public void connectSelenideBrowserToPW() {
         Playwright playwright = Playwright.create();
         Browser chrome = playwright.chromium().launch(new LaunchOptions()
-                .setHeadless(true)
+                .setHeadless(headless)
                 .setChannel("chrome")
                 .setArgs(List.of("--remote-debugging-port=9222")));
 
@@ -88,10 +90,10 @@ public class FormWithManyFieldsTest {
         timeStat.setSelenideOverDebugPort(((endTime - timeStart) / 1000));
     }
 
-    @Test(dataProvider = "dataProvider")
+    @Test(dataProvider = "dataProvider", priority = 1)
     public void tableDataTestSelenide(boolean fastSetValue) {
         Configuration.browser = "chrome";
-        Configuration.headless = true;
+        Configuration.headless = headless;
         Configuration.fastSetValue = fastSetValue;
         open("https://datatables.net/examples/api/form.html");
 
@@ -126,11 +128,11 @@ public class FormWithManyFieldsTest {
 
 
     @SneakyThrows
-    @Test
+    @Test(priority = 10)
     public void tableDataTestPlaywright() {
         Playwright playwright = Playwright.create();
         Browser chrome = playwright.chromium().launch(new LaunchOptions()
-                .setHeadless(true).setChannel("chrome"));
+                .setHeadless(headless).setChannel("chrome"));
 
         Page page = chrome.newPage();
         page.navigate("https://datatables.net/examples/api/form.html");
@@ -161,10 +163,10 @@ public class FormWithManyFieldsTest {
     }
 
 
-    @Test
+    @Test(priority = 20)
     public void testCombineSelenideAndPW() {
         Configuration.browser = "chrome";
-        Configuration.headless = true;
+        Configuration.headless = headless;
         open("https://datatables.net/examples/api/form.html");
         Playwright playwright = Playwright.create();
         Browser browser = playwright.chromium().connectOverCDP(
